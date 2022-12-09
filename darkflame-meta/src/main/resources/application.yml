@@ -1,0 +1,19 @@
+server:
+  port: 25001
+
+spring:
+  profiles:
+    active: dev
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: 'postgres'
+    password: 'Ljy19970316!'
+    url: 'jdbc:postgresql://datacenter.darkflame.cn:5432/darkflame'
+
+mybatis:
+  mapper-locations: classpath*:cn/darkflame/meta/db/mapper/*.xml
+logging:
+  level:
+    com:
+      example:
+        mapper: debug

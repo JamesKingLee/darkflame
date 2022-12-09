@@ -1,0 +1,35 @@
+// 依赖版本管理
+ext {
+    versionsMap = [
+            "springBootVersion"     : "3.0.0",
+            "postgresqlVersion"     : "42.5.1",
+            "easyExcelVersion"      : "3.1.3",
+            "mybatisVersion"        : "2.2.2",
+            "lombokVersion"         : "1.18.24",
+            "junitVersion"          : "4.13.2",
+            "commonsCompressVersion": "1.22",
+            "javassistVersion"      : "3.29.2-GA",
+            "gsonVersion"           : "2.8.9",
+            "commonsIoVersion"      : "2.11.0",
+            "javaxVersion"          : "8.0.1"
+    ]
+
+    dependenciesMap = [
+            "spring-boot-starter-jdbc"           : "org.springframework.boot:spring-boot-starter-jdbc:${versionsMap.springBootVersion}",
+            "spring-boot-starter-web"            : "org.springframework.boot:spring-boot-starter-web:${versionsMap.springBootVersion}",
+            "spring-boot-devtools"               : "org.springframework.boot:spring-boot-devtools:${versionsMap.springBootVersion}",
+            "spring-boot-starter-test"           : "org.springframework.boot:spring-boot-starter-test:${versionsMap.springBootVersion}",
+            "spring-boot-configuration-processor": "org.springframework.boot:spring-boot-configuration-processor:${versionsMap.springBootVersion}",
+            "spring-boot-starter-actuator"       : "org.springframework.boot:spring-boot-starter-actuator:${versionsMap.springBootVersion}",
+            "org.mybatis.spring.boot"            : "org.mybatis.spring.boot:mybatis-spring-boot-starter:${versionsMap.mybatisVersion}",
+            "postgresql"                         : "org.postgresql:postgresql:${versionsMap.postgresqlVersion}",
+            "lombok"                             : "org.projectlombok:lombok:${versionsMap.lombokVersion}",
+            "junit"                              : "junit:junit:${versionsMap.junitVersion}",
+            "easyexcel"                          : "com.alibaba:easyexcel:${versionsMap.easyExcelVersion}",
+            "commons-compress"                   : "org.apache.commons:commons-compress:${versionsMap.commonsCompressVersion}",
+            "javassist"                          : "org.javassist:javassist:${versionsMap.javassistVersion}",
+            "gson"                               : "com.google.code.gson:gson:${versionsMap.gsonVersion}",
+            "commons-io"                         : "commons-io:commons-io:${versionsMap.commonsIoVersion}",
+            "javax"                              : "javax:javaee-api:${versionsMap.javaxVersion}"
+    ]
+}

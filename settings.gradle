@@ -8,3 +8,7 @@
  */
 
 rootProject.name = 'darkflame'
+include "darkflame-meta"
+include 'darkflame-common'
+include 'darkflame-model'
+

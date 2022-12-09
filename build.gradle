@@ -4,3 +4,101 @@
  * This is a general purpose Gradle build.
  * Learn more about Gradle by exploring our samples at https://docs.gradle.org/7.6/samples
  */
+description "darkflame工具"
+
+/**
+ * 当前构建脚本，指定spring-boot-gradle-plugin 版本
+ */
+buildscript {
+    ext {
+        springBootVersion = "3.0.0"
+    }
+
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+    }
+}
+
+allprojects {
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+    }
+}
+
+/**
+ * 引入version.gradle文件，用于表达第三方包版本信息
+ */
+apply from: 'version.gradle'
+/**
+ * 子项目配置信息：依赖管理、编译版本、应用插件
+ */
+subprojects {
+    apply plugin: "java"
+    apply plugin: "java-library"
+    apply plugin: "io.spring.dependency-management"
+
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+
+    dependencyManagement {
+        dependencies {
+            for (dependencyItem in rootProject.ext.dependenciesMap) {
+                dependency dependencyItem.value
+            }
+        }
+    }
+}
+
+project("darkflame-model") {
+    description "实体类"
+
+    dependencies {
+        api project(":darkflame-common")
+        testImplementation "junit:junit"
+        implementation "com.google.code.gson:gson"
+    }
+
+}
+
+project("darkflame-common") {
+    description "通用功能项目"
+
+    dependencies {
+        testImplementation "junit:junit"
+        implementation "com.alibaba:easyexcel"
+        implementation "org.javassist:javassist"
+        implementation "com.google.code.gson:gson"
+    }
+
+}
+
+project("darkflame-meta") {
+    description "元数据微服务"
+
+    apply plugin: "org.springframework.boot"
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
+    dependencies {
+        implementation project(":darkflame-model")
+        implementation "javax:javaee-api"
+        implementation "org.springframework.boot:spring-boot-starter-jdbc"
+        implementation "org.springframework.boot:spring-boot-starter-web"
+        implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter"
+        implementation 'org.springframework.boot:spring-boot-starter-actuator'
+        implementation "com.google.code.gson:gson"
+        implementation "commons-io:commons-io"
+        developmentOnly "org.springframework.boot:spring-boot-devtools"
+        runtimeOnly "org.postgresql:postgresql"
+        annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+        testImplementation "org.springframework.boot:spring-boot-starter-test"
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}
