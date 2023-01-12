@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.darkflame.meta.i18n.dao.I18nInfoDao">
+  <resultMap id="BaseResultMap" type="cn.darkflame.meta.i18n.model.I18nInfo">
+    <id column="resource_file" jdbcType="VARCHAR" property="resourceFile" />
+    <id column="code" jdbcType="VARCHAR" property="code" />
+    <id column="number" jdbcType="VARCHAR" property="number" />
+    <result column="info" jdbcType="VARCHAR" property="info" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    resource_file, code, "number", info
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="cn.darkflame.meta.i18n.model.I18nInfoKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from "i18n_info"
+    where resource_file = #{resourceFile,jdbcType=VARCHAR}
+      and code = #{code,jdbcType=VARCHAR}
+      and "number" = #{number,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="cn.darkflame.meta.i18n.model.I18nInfoKey">
+    delete from "i18n_info"
+    where resource_file = #{resourceFile,jdbcType=VARCHAR}
+      and code = #{code,jdbcType=VARCHAR}
+      and "number" = #{number,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="resource_file" keyProperty="resourceFile" parameterType="cn.darkflame.meta.i18n.model.I18nInfo" useGeneratedKeys="true">
+    insert into "i18n_info" (code, "number", info
+      )
+    values (#{code,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, #{info,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="resource_file" keyProperty="resourceFile" parameterType="cn.darkflame.meta.i18n.model.I18nInfo" useGeneratedKeys="true">
+    insert into "i18n_info"
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        code,
+      </if>
+      <if test="number != null">
+        "number",
+      </if>
+      <if test="info != null">
+        info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="info != null">
+        #{info,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.darkflame.meta.i18n.model.I18nInfo">
+    update "i18n_info"
+    <set>
+      <if test="info != null">
+        info = #{info,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where resource_file = #{resourceFile,jdbcType=VARCHAR}
+      and code = #{code,jdbcType=VARCHAR}
+      and "number" = #{number,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.darkflame.meta.i18n.model.I18nInfo">
+    update "i18n_info"
+    set info = #{info,jdbcType=VARCHAR}
+    where resource_file = #{resourceFile,jdbcType=VARCHAR}
+      and code = #{code,jdbcType=VARCHAR}
+      and "number" = #{number,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -11,7 +11,7 @@ description "darkflame工具"
  */
 buildscript {
     ext {
-        springBootVersion = "3.0.0"
+        springBootVersion = "3.0.1"
     }
 
     dependencies {
@@ -20,8 +20,15 @@ buildscript {
 }
 
 allprojects {
-    tasks.withType(JavaCompile) {
-        options.encoding = "UTF-8"
+    //项目是java项目
+    apply plugin: 'java'
+    //项目是idea项目
+    apply plugin: 'idea'
+
+    tasks.withType(JavaCompile).tap {
+        configureEach {
+            options.encoding = "UTF-8"
+        }
     }
 }
 
@@ -34,6 +41,7 @@ apply from: 'version.gradle'
  */
 subprojects {
     apply plugin: "java"
+    apply plugin: 'idea'
     apply plugin: "java-library"
     apply plugin: "io.spring.dependency-management"
 
@@ -53,7 +61,6 @@ project("darkflame-model") {
     description "实体类"
 
     dependencies {
-        api project(":darkflame-common")
         testImplementation "junit:junit"
         implementation "com.google.code.gson:gson"
     }
@@ -64,6 +71,7 @@ project("darkflame-common") {
     description "通用功能项目"
 
     dependencies {
+        implementation project(":darkflame-model")
         testImplementation "junit:junit"
         implementation "com.alibaba:easyexcel"
         implementation "org.javassist:javassist"
@@ -77,15 +85,15 @@ project("darkflame-meta") {
 
     apply plugin: "org.springframework.boot"
 
-    configurations {
-        compileOnly {
-            extendsFrom annotationProcessor
-        }
-    }
+//    configurations {
+//        compileOnly {
+//            extendsFrom annotationProcessor
+//        }
+//    }
 
     dependencies {
         implementation project(":darkflame-model")
-        implementation "javax:javaee-api"
+        implementation project(":darkflame-common")
         implementation "org.springframework.boot:spring-boot-starter-jdbc"
         implementation "org.springframework.boot:spring-boot-starter-web"
         implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter"

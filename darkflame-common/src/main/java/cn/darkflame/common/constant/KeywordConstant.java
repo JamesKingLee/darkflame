@@ -13,6 +13,8 @@ public class KeywordConstant {
 
     public static final String FORWARD_SLASH = "/";
 
+    public static final char FORWARD_SLASH_CHAR = '/';
+
     public static final String BACK_SLASH = "\\";
 
     public static final String SINGLE_QUOTATION = "'";

@@ -1,16 +1,15 @@
 package cn.darkflame.model.meta.exception;
 
-import cn.darkflame.common.constant.KeywordConstant;
-import cn.darkflame.common.util.ObjectUtils;
 import com.google.gson.Gson;
 
+import java.io.Serializable;
 import java.util.Map;
 
 /**
  * @author james
  */
 @SuppressWarnings("unused")
-public class ExceptionClassDO {
+public class ExceptionClassDO implements Serializable {
 
     private String workPath;
 
@@ -23,22 +22,23 @@ public class ExceptionClassDO {
     private Boolean runtimeException = false;
 
     /**
-     * key - 地区信息 eg. zh_CN
-     * value - 提示具体信息
-     * key - 提示信息编码
-     * value - 提示具体信息
+     * <p>key - 地区信息 eg. zh_CN</p>
+     * <p>value - 提示具体信息</p>
+     * <p>  --key - 提示信息编码</p>
+     * <p>  --value - 提示具体信息</p>
      */
     private Map<String, Map<String, String>> message;
 
     public ExceptionClassDO() {
     }
 
-    public ExceptionClassDO(String workPath, String srcPath, String resourcePath, String className, Boolean runtimeException, Map<String, Map<String, String>> message) {
+    public ExceptionClassDO(String workPath, String srcPath, String resourcePath, String className,
+                            Boolean runtimeException, Map<String, Map<String, String>> message) {
         this.workPath = workPath;
         this.srcPath = srcPath;
         this.resourcePath = resourcePath;
         this.className = className;
-        this.runtimeException = runtimeException == null ? false : runtimeException;
+        this.runtimeException = runtimeException;
         this.message = message;
     }
 
@@ -55,11 +55,6 @@ public class ExceptionClassDO {
     }
 
     public void setSrcPath(String srcPath) {
-        ObjectUtils.notNull(srcPath, "resourcePath");
-        srcPath = srcPath.replace(KeywordConstant.BACK_SLASH, KeywordConstant.FORWARD_SLASH);
-        if (srcPath.endsWith(KeywordConstant.FORWARD_SLASH)) {
-            srcPath = srcPath.substring(0, srcPath.length() - 1);
-        }
         this.srcPath = srcPath;
     }
 
@@ -68,11 +63,6 @@ public class ExceptionClassDO {
     }
 
     public void setResourcePath(String resourcePath) {
-        ObjectUtils.notNull(resourcePath, "resourcePath");
-        resourcePath = resourcePath.replace(KeywordConstant.BACK_SLASH, KeywordConstant.FORWARD_SLASH);
-        if (resourcePath.endsWith(KeywordConstant.FORWARD_SLASH)) {
-            resourcePath = resourcePath.substring(0, resourcePath.length() - 1);
-        }
         this.resourcePath = resourcePath;
     }
 
@@ -89,7 +79,7 @@ public class ExceptionClassDO {
     }
 
     public void setRuntimeException(Boolean runtimeException) {
-        this.runtimeException = runtimeException == null ? false : runtimeException;
+        this.runtimeException = runtimeException;
     }
 
     public Map<String, Map<String, String>> getMessage() {

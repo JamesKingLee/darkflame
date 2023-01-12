@@ -6,12 +6,12 @@ spring:
     active: dev
   datasource:
     driver-class-name: org.postgresql.Driver
-    username: 'postgres'
-    password: 'Ljy19970316!'
-    url: 'jdbc:postgresql://datacenter.darkflame.cn:5432/darkflame'
+    username: ${PG_USER}
+    password: ${PG_PASSWORD}
+    url: ${PG_URL}
 
 mybatis:
-  mapper-locations: classpath*:cn/darkflame/meta/db/mapper/*.xml
+  mapper-locations: classpath:cn/darkflame/meta/mapper/**/*.xml
 logging:
   level:
     com:
